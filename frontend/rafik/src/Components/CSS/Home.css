@@ -1,0 +1,17 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+
+.home-container{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 80px;
+}
+
+
+/* Most Popular Courses */
