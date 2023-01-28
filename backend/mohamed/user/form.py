@@ -5,13 +5,7 @@ from user.models import User
 
 
 
-class RegisterForm(FlaskForm):
-    
-    name = StringField(validators=[
-                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Name"})
-     
-    email = StringField(validators=[
-                           InputRequired(), Length(min=10, max=50)], render_kw={"placeholder": "email"})
+class Required(), Length(min=10, max=50)], render_kw={"placeholder": "email"})
 
     password = PasswordField(validators=[
                              InputRequired(), Length(min=8, max=50)], render_kw={"placeholder": "Password"})
