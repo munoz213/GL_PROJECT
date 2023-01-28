@@ -11,13 +11,13 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(20), nullable = False, unique =True)
     password = db.Column(db.String(80), nullable=False)
     phone = db.Column(db.String(10), nullable=False, unique=True)
-
+    address = db.Column(db.String(50), nullable=False)
 
 ma = Marshmallow(app)
 
 class userschema(ma.Schema):
     class Meta:
-        fields = ("id","name","email","password", "phone")
+        fields = ("id","name","email","password", "phone", "address")
 
 user_schema = userschema()
 users_schema = userschema(many =True)        

@@ -47,7 +47,6 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ad_id = db.Column(db.Integer, db.ForeignKey('ad.id'))
     sender_id = db.Column(db.Integer, db.ForeignKey(User.id))
-    sender_name = db.Column(db.String, db.ForeignKey(User.name))
     message = db.Column(db.String(500))
     offer = db.Column(db.Float)
     

@@ -18,6 +18,9 @@ class RegisterForm(FlaskForm):
     
     phone = StringField(validators=[
                              InputRequired(), Length(min=10, max=10)], render_kw={"placeholder": "Phone"})
+    
+    address = StringField(validators=[
+                             InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Address"})
 
     submit = SubmitField('Register')
 

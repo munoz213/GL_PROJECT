@@ -3,7 +3,7 @@ from flask import request, jsonify, url_for, session
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, LoginManager, login_required, logout_user
 from user.form import LoginForm, RegisterForm
-from user.models import User, users_schema
+from user.models import User, users_schema, user_schema
 
 
 bcrypt = Bcrypt(app)
@@ -48,7 +48,7 @@ def register():
     form = RegisterForm() 
     if form.validate():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
-        new_user = User(name=form.name.data,email=form.email.data, password=hashed_password, phone=form.phone.data)
+        new_user = User(name=form.name.data,email=form.email.data, password=hashed_password, phone=form.phone.data, address=form.address.data)
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'message': 'Successfully registered'})
@@ -105,5 +105,18 @@ def authorized():
         return jsonify(**me.data)
 
 
+@app.route('/user/<id>', methods=['PUT'])
+def update_user(id):
+    name = request.form['name']
+    password = request.form['password']
+    phone = request.form['phone']
+    address = request.form['address']
+    user = User.query.filter_by(id=id).first()
+    user.name = name
+    user.password = password
+    user.phone = phone
+    user.address = address
+    db.session.commit()
+    return user_schema.jsonify(user)
 
 
