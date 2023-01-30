@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+.coursesipublished-container{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding-top: 130px;
+    justify-content: space-around;
+}
+.coursesipublished-elements{
+    display: flex;
+    flex-direction: column;
+}
+
+.coursesipublished-elements h2{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    color: #1F1F1F;
+}
+
+.published-courses-list{
+    width: 870px;
+}
