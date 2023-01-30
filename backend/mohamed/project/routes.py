@@ -130,7 +130,7 @@ def update_user(id):
 
 
 
-@app.route('/post_ad', methods=['GET', 'POST'])
+@app.route('/post_ad', methods=['GET', 'POST'])    #Déposer des annonces de soutien scolaires sur le site
 def post_ad():
     if request.method == 'POST':
 
@@ -147,7 +147,7 @@ def post_ad():
         db.session.add(ad)
         db.session.commit()
 
-        if not os.path.exists("photos"):
+        if not os.path.exists("photos"):     # creer folder photos si il n'existe pas pour ajouter des phoyos 
             os.mkdir("photos")
         for file in request.files.getlist('photos'):
             filename = file.filename
@@ -161,19 +161,20 @@ def post_ad():
     return jsonify({'message': 'Invalid request method'}), 400
 
 
-@app.route('/ads')
+@app.route('/ads')     #Afficher la liste des annonces retrouvées en commençant par les plus récentes
 def get_ads():
     ads = Ad.query.order_by(Ad.date_posted.desc(),Ad.id.desc()).all()
     return jsonify([ad.to_dict() for ad in ads])
 
-@app.route('/search_ad', methods=['GET'])
+@app.route('/search_ad', methods=['GET'])     #Rechercher, dans le titre et la description, toutes les annonces contenant un ou plusieurs mots spécifiés par l’annonceur
+
 def search_ad():
     search_query = request.args.get('q')
     ads = Ad.query.filter(Ad.titre.like('%' + search_query + '%') | Ad.description.like('%' + search_query + '%')).all()
     return jsonify([ad.to_dict() for ad in ads]), 200
 
 
-@app.route('/filter_ads', methods=['GET'])
+@app.route('/filter_ads', methods=['GET'])   #Filtrer les résultats de recherche selon: Le module ,une catégorie, La Wilaya,La commune d’une Wilaya, Période entre deux dates de publication
 def search_ads():
     category = request.args.get('category')
     theme = request.args.get('theme')
@@ -198,7 +199,8 @@ def search_ads():
     return jsonify([Ad.to_dict() for Ad in Ads])
 
 
-@app.route('/annonce/<int:id>')
+@app.route('/annonce/<int:id>')  #Afficher les détails de chaque annonce ainsi que les différentes photos associés publiées par l’utilisateur.
+
 def annonce(id):
     ann = Ad.query.get(id)
     data = {
@@ -217,7 +219,7 @@ def annonce(id):
     return jsonify(data)
 
 
-@app.route('/annonce/<int:id>/message', methods=['POST'])
+@app.route('/annonce/<int:id>/message', methods=['POST'])   #Envoyer un message à l’annonceur d’une annonce pour lui faire une offre.
 def send_message(id):
     sender_id = request.form.get('sender_id')
     message = request.form.get('message')
@@ -230,7 +232,7 @@ def send_message(id):
     return jsonify({'status': 'success'})
 
 
-@app.route('/message/<int:ad_id>', methods=['GET'])
+@app.route('/message/<int:ad_id>', methods=['GET'])    #Consulter les messages d’offres faites par les autres utilisateurs
 def get_messages(ad_id):
     messages = Message.query.filter_by(ad_id=ad_id).all()
     return jsonify([{'sender_name': message.sender_name, 'message': message.message, 'offer': message.offer} for message in messages])
