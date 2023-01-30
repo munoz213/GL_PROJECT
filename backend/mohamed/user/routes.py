@@ -20,7 +20,7 @@ def load_user(user_id):
 def home():
     return 'Welcome to the Home page'
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST']) #authenrification et verification des mots de passe 
 def login():
     form = LoginForm()
     if form.validate():
@@ -105,7 +105,7 @@ def authorized():
         return jsonify(**me.data)
 
 
-@app.route('/user/<id>', methods=['PUT'])
+@app.route('/user/<id>', methods=['PUT'])# a utiliser dans le profil 
 def update_user(id):
     name = request.form['name']
     password = request.form['password']
