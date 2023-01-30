@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(20), nullable = False, unique =True)
     password = db.Column(db.String(80), nullable=False)
     phone = db.Column(db.String(10), nullable=False, unique=True)
-    address = db.Column(db.String(50), nullable=False)
+    address = db.Column(db.String(50), nullable=True)
 
 ma = Marshmallow(app)
 
