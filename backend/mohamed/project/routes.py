@@ -23,7 +23,7 @@ def load_user(user_id):
 def home():
     return 'Welcome to the Home page'
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST'])    #connectez-vous avec e-mail et mot de passe
 def login():
     form = LoginForm()
     if form.validate():
@@ -40,13 +40,13 @@ def login():
 def dashboard():
     return jsonify({'message': 'Welcome to the dashboard'})
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['POST'])   #déconnexion
 @login_required
 def logout():
     logout_user()
     return jsonify({'message': 'Successfully logged out'})
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['POST'])   #inscrivez-vous avec email et mot de passe & num de tel & name & address
 def register():
     form = RegisterForm() 
     if form.validate():
@@ -59,11 +59,11 @@ def register():
 
 @app.route('/getallusers', methods=['GET'])
 def getuser():
-    users = User.query.order_by(User.id.desc(),User.date).all()
+    users = User.query.order_by(User.id.desc()).all()
     return jsonify(users_schema.dump(users))
 
 
-@app.route('/logingoogle')
+@app.route('/logingoogle')   #Un utilisateur ou l’administrateur doit s’authentifier avec son compte Google
 def logingoogle():
     with app.app_context():
         google = oauth.remote_app(
@@ -108,7 +108,7 @@ def authorized():
         return jsonify(**me.data)
 
 
-@app.route('/user/<id>', methods=['PUT'])
+@app.route('/user/<id>', methods=['PUT'])  #modifier les infos de votre compte
 def update_user(id):
     name = request.form['name']
     password = request.form['password']
@@ -238,7 +238,7 @@ def get_messages(ad_id):
     return jsonify([{'sender_name': message.sender_name, 'message': message.message, 'offer': message.offer} for message in messages])
 
 
-@app.route('/annonces', methods=['GET'])
+@app.route('/annonces', methods=['GET'])    #Consulter ses propres annonces qu’il a déjà déposé sur le site des annonces
 def get_annonces():
     user_id = request.args.get('user_id')
     if user_id is None:
@@ -246,7 +246,7 @@ def get_annonces():
     annonces = Ad.query.filter_by(annonceur_id=user_id).all()
     return jsonify([a.to_dict() for a in annonces])
 
-@app.route('/save_favorite_ad', methods=['POST'])
+@app.route('/save_favorite_ad', methods=['POST'])   #Sauvegarder ses annonces préférées pour une consultation ultérieure.
 def save_favorite_ad():
     user_id = request.form['user_id']
     ad_id = request.form['ad_id']
@@ -255,7 +255,7 @@ def save_favorite_ad():
     db.session.commit()
     return jsonify({'message': 'Ad saved as favorite'})
 
-@app.route('/get_favorite_ads/<int:user_id>', methods=['GET'])
+@app.route('/get_favorite_ads/<int:user_id>', methods=['GET'])   #Consulter ses propres annonces qu’il a déjà déposé sur le site des annonces
 def get_favorite_ads(user_id):
     favorite_ads = FavoriteAd.query.filter_by(user_id=user_id).all()
     ads = []
