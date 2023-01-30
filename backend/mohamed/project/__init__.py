@@ -12,4 +12,4 @@ oauth = OAuth(app)
 db = SQLAlchemy(app)
 
 
-from user import routes
+from project import routes

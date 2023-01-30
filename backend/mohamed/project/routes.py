@@ -1,12 +1,14 @@
-from user import app, db, oauth
+from project import app, db, oauth
 from flask import request, jsonify, url_for, session
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, LoginManager, login_required, logout_user
-from user.form import LoginForm, RegisterForm
-from user.models import User, users_schema, user_schema, Ad,Photo,Message, FavoriteAd
+from project.form import LoginForm, RegisterForm
+from project.models import User, users_schema, user_schema, Ad,Photo,Message, FavoriteAd  
 import os
 
 
+
+#________________________________________________________________USERS__ROUTES________________________________________________________________       
 bcrypt = Bcrypt(app)
 
 login_manager = LoginManager()
@@ -21,7 +23,7 @@ def load_user(user_id):
 def home():
     return 'Welcome to the Home page'
 
-@app.route('/login', methods=['POST']) #authenrification et verification des mots de passe 
+@app.route('/login', methods=['POST'])
 def login():
     form = LoginForm()
     if form.validate():
@@ -106,7 +108,7 @@ def authorized():
         return jsonify(**me.data)
 
 
-@app.route('/user/<id>', methods=['PUT'])# a utiliser dans le profil 
+@app.route('/user/<id>', methods=['PUT'])
 def update_user(id):
     name = request.form['name']
     password = request.form['password']
@@ -124,7 +126,7 @@ def update_user(id):
 
 
 
-
+#________________________________________________________________ANNONCES__ROUTES________________________________________________________________       
 
 
 
