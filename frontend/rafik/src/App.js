@@ -1,3 +1,5 @@
+import React from 'react'
+import { useState } from 'react';
 import { Route, Routes } from "react-router-dom";
 
 // Importing components
@@ -9,6 +11,9 @@ import Course from './Components/JS/Course';
 import PostCourse from './Components/JS/PostCourse';
 import Home from './Components/JS/Home';
 import Navbar from './Components/JS/Navbar';
+import SavedCourses from './Components/JS/SavedCourses';
+import CoursesIpublished from './Components/JS/CoursesIpublished';
+import UpdatePassword from './Components/JS/UpdatePassword';
 
 function App() {
   return (
@@ -17,10 +22,14 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Home/>} />
+          <Route path="/CoursesIpublished" element={<CoursesIpublished navbarState={navbarState} setnavbarState={setnavbarState}/>} />
+          <Route path="/UpdatePassword" element={<UpdatePassword navbarState={navbarState} setnavbarState={setnavbarState}/>} />
+          <Route path="/SignIn" element={<SignIn/>} />
           <Route path="/SignIn" element={<SignIn/>} />
           <Route path="/SignUp" element={<SignUp/>} />
           <Route path="/Profile" element={<Profile/>} />
           <Route path="/Courses" element={<Courses/>} />
+          <Route path="/SavedCourses" element={<SavedCourses navbarState={navbarState} setnavbarState={setnavbarState}/>} />
           <Route path="/Course" element={<Course/>} />
           <Route path="/PostCourse" element={<PostCourse/>} />
         </Routes>
