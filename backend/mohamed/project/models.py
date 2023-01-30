@@ -1,5 +1,5 @@
 from flask import url_for
-from user import db, app
+from project import db, app
 from flask_login import UserMixin
 from flask_marshmallow import Marshmallow
 from datetime import datetime
