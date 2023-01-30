@@ -52,7 +52,8 @@ class Ad(db.Model):
             'wilaya': self.wilaya,
             'commune':self.commune,
             'address':self.address,
-            'photo': url_for('static', filename=f'photos/{self.photo}', _external=True)
+            'photo': url_for('static', filename=f'photos/{self.photo}', _external=True),
+            'date_posted': self.date_posted
         }
     
     
